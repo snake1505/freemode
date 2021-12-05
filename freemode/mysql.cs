@@ -51,9 +51,9 @@ namespace freemode
             command.CommandText = "SELECT * FROM accounts WHERE name=@name LIMIT 1";
             command.Parameters.AddWithValue("@name", name);
 
-            using (MySqlDataReader reader = command.ExecuteReader())
+            using (MySqlDataReader readers = command.ExecuteReader())
             {
-                if(reader.HasRows)
+                if(readers.HasRows)
                 {
                     return true;
                 }
@@ -74,7 +74,7 @@ namespace freemode
                 command.Parameters.AddWithValue("@name", account._name);
                 command.Parameters.AddWithValue("@cash", account._cash);
 
-                command.ExecuteReader();
+                command.ExecuteNonQuery();
 
                 account._id = (int)command.LastInsertedId;
             }
@@ -91,13 +91,13 @@ namespace freemode
             command.CommandText = "SELECT * FROM accounts WHERE name=@name LIMIT 1";
             command.Parameters.AddWithValue("@name", account._name);
 
-            using(MySqlDataReader reader = command.ExecuteReader())
+            using(MySqlDataReader readerd = command.ExecuteReader())
             {
-                if (reader.HasRows)
+                if (readerd.HasRows)
                 {
-                    reader.Read();
-                    account._id = reader.GetInt32("id");
-                    account._cash = reader.GetInt32("cash");
+                    readerd.Read();
+                    account._id = readerd.GetInt32("id");
+                    account._cash = readerd.GetInt32("cash");
                 }
             }
         }
