@@ -61,7 +61,7 @@ namespace freemode
             }
         }
 
-        public static void NewAccountRegister(Accounts account, string password)
+        public static void NewAccountRegister(Accounts account, string login, string email, string password)
         {
             string saltPw = BCrypt.HashPassword(password, BCrypt.GenerateSalt());
 
@@ -69,10 +69,11 @@ namespace freemode
             {
                 MySqlCommand command = _connection.CreateCommand();
 
-                command.CommandText = "INSERT INTO accounts (pass, name, cash) VALUES (@pass, @name, @cash)";
+                command.CommandText = "INSERT INTO accounts (pass, name, cash, email) VALUES (@pass, @name, @cash, @email)";
                 command.Parameters.AddWithValue("@pass", saltPw);
-                command.Parameters.AddWithValue("@name", account._name);
+                command.Parameters.AddWithValue("@name", login);
                 command.Parameters.AddWithValue("@cash", account._cash);
+                command.Parameters.AddWithValue("@email", email);
 
                 command.ExecuteNonQuery();
 

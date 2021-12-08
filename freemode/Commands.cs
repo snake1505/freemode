@@ -49,24 +49,5 @@ namespace freemode
             account.Login(player, false);
             NAPI.ClientEvent.TriggerClientEvent(player, "PlayerFreeze", false);
         }
-
-        [Command("register", "/register [пароль]")]
-        private void cmd_register(Player player, string password)
-        {
-            if (Accounts.IsPlayerLoggedIn(player))
-            {
-                player.SendNotification("~r~Вы уже авторизованы.");
-                return;
-            }
-            if (mysql.IsAccountExist(player.Name))
-            {
-                player.SendNotification("~r~Вы уже зарегистрированы.");
-                return;
-            }
-
-            Accounts account = new Accounts(player.Name, player);
-            account.Register(player.Name, password);
-            NAPI.ClientEvent.TriggerClientEvent(player, "PlayerFreeze", false);
-        }
     }
 }

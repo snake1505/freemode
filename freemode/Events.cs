@@ -14,14 +14,7 @@ namespace freemode
         private void OnPlayerConnected(Player player)
         {
             player.SendChatMessage("Добро пожаловать на сервер ~g~Global RP");
-            if(mysql.IsAccountExist(player.Name))
-            {
-                player.SendChatMessage("~w~Ваш аккаунт уже ~g~зарегистрирован~w~ на сервере. Используйте /login для авторизации.");
-            }
-            else
-            {
-                player.SendChatMessage("~w~Ваш аккаунт не ~g~зарегистрирован~w~ на сервере. Используйте /register для регистрации.");
-            }
+            NAPI.ClientEvent.TriggerClientEvent(player, "showLoginWindow");
             NAPI.ClientEvent.TriggerClientEvent(player, "PlayerFreeze", true);
         }
 

@@ -34,9 +34,9 @@ namespace freemode
             return false;
         }
 
-        public void Register(string name, string password)
+        public void Register(string login, string email, string password)
         {
-            mysql.NewAccountRegister(this, password);
+            mysql.NewAccountRegister(this, login, email, password);
             Login(_player, true);
         }
 
